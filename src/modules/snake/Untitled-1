@@ -1,0 +1,22 @@
+function updateGame(){
+
+  if(checkCollisionSnake()){
+    gameOver();
+  }
+
+  let snakeBodyIncrement = {coordX: snakeHead.coordX, coordY: snakeHead.coordY};
+  
+  if(snakeBody.length > 0){
+    
+    snakeBodyIncrement.coordX = snakeBody[snakeBody.length-1].coordX;
+    snakeBodyIncrement.coordY = snakeBody[snakeBody.length-1].coordY;
+
+    for(let i = snakeBody.length-1; i > 0; --i){
+      [snakeBody[i].coordX, snakeBody[i].coordY] = [snakeBody[i-1].coordX, snakeBody[i-1].coordY]
+    }
+    [snakeBody[0].coordX, snakeBody[0].coordY] = [snakeHead.coordX, snakeHead.coordY]
+  }
+
+  updatePositonSnake();
+  updateFood(snakeBodyIncrement);
+}
